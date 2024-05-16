@@ -12,6 +12,7 @@ trim_trailing_whitespace = false
 [{*.cpp,*.hpp}]
 indent_style = space
 indent_size = 4
+ij_any_block_brace_style = end_of_line
 
 [CMakeLists.txt]
 indent_style = space
