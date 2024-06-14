@@ -15,32 +15,36 @@ using namespace Lattice;
 // Constructors
 
 Request::Request(Method method, std::string path, const std::string &body): AbstractMessage({}, body), _method(method),
-                                                                            _path(std::move(path))
+                                                                            _processedPath({}), _path(std::move(path))
 {
 
 }
 
 Request::Request(Method method, std::string path, const std::vector<Header> &headers, const std::string &body): AbstractMessage(headers, body), _method(method),
-                                                                                                                _path(std::move(path))
+                                                                                                                  _processedPath({}), _path(std::move(path))
 {
 
 }
 
 Request::Request(const Request &request): AbstractMessage(request), _method(request._method),
-                                         _path(request._path)
+                                          _processedPath(request._processedPath)
 {
 }
 
 // Getters
+
+std::string Request::getPath() const
+{
+    return _path;
+}
 
 Method Request::getMethod() const
 {
     return _method;
 }
 
-std::string Request::getPath() const
-{
-    return _path;
+ProcessedPath Request::getProcessedPath() const {
+    return _processedPath;
 }
 
 bool Request::isHandled() const
@@ -55,14 +59,19 @@ void Request::setMethod(Method method)
     _method = method;
 }
 
-void Request::setPath(std::string path)
+void Request::setProcessedPath(ProcessedPath path)
 {
-    _path = std::move(path);
+    _processedPath = std::move(path);
 }
 
 void Request::setHandled(bool handled)
 {
     _handled = handled;
+}
+
+void Request::setPath(const std::string &path)
+{
+    _path = path;
 }
 
 // Serialization
@@ -80,6 +89,6 @@ Request &Request::operator=(const Request &request)
         return *this;
     AbstractMessage::operator=(request);
     _method = request._method;
-    _path = request._path;
+    _processedPath = request._processedPath;
     return *this;
 }

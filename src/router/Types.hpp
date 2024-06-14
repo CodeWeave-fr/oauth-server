@@ -19,6 +19,11 @@ namespace Lattice {
     } Header;
 
     typedef struct {
+        std::string name;
+        std::string value;
+    } QueryParam;
+
+    typedef struct {
         std::string path;
         Method method;
     } Route;

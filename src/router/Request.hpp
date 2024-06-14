@@ -12,11 +12,13 @@
 #include "Method.hpp"
 #include "Types.hpp"
 #include "AbstractMessage.hpp"
+#include "PathMatcher.hpp"
 
 namespace Lattice {
     class Request: public AbstractMessage {
     protected:
         Method _method;
+        ProcessedPath _processedPath;
         std::string _path;
         bool _handled = false;
     public:
@@ -39,6 +41,12 @@ namespace Lattice {
          */
         [[nodiscard]] std::string getPath() const;
         /**
+         * @brief This method returns the ProcessedPath of the Request object
+         * @return The ProcessedPath of the Request object
+         * @since 0.1.0
+         */
+        [[nodiscard]] ProcessedPath getProcessedPath() const;
+        /**
          * @brief This method returns whether the Request object has been handled
          * @return Whether the Request object has been handled
          * @since 0.1.0
@@ -47,17 +55,23 @@ namespace Lattice {
 
         // ---------- Setters ----------
         /**
+         * @brief This method sets the path of the Request object
+         * @param path The path to set
+         * @since 0.1.0
+         */
+        void setPath(const std::string &path);
+        /**
          * @brief This method sets the Method of the Request object
          * @param method The Method to set
          * @since 0.1.0
          */
         void setMethod(Method method);
         /**
-         * @brief This method sets the Path of the Request object
-         * @param path The Path to set
+         * @brief This method sets the ProcessedPath of the Request object
+         * @param path The ProcessedPath to set
          * @since 0.1.0
          */
-        void setPath(std::string path);
+        void setProcessedPath(ProcessedPath path);
         /**
          * @brief This method sets whether the Request object has been handled
          * @param handled Whether the Request object has been handled
